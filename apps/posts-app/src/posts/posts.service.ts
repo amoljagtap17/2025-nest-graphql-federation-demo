@@ -1,26 +1,66 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class PostsService {
+
+  private posts: { id: string; title: string; content: string }[] = [];
+
   create(createPostInput: CreatePostInput) {
-    return 'This action adds a new post';
+    const newPost = {
+      id: randomUUID(),
+      ...createPostInput,
+    };
+
+    this.posts.push(newPost);
+
+    return newPost;
   }
 
   findAll() {
-    return `This action returns all posts`;
+    return this.posts;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  findOne(id: string) {
+    const post = this.posts.find(post => post.id === id);
+
+    if (!post) {
+      throw new Error(`Post with ID ${id} not found`);
+    }
+
+    return post;
   }
 
-  update(id: number, updatePostInput: UpdatePostInput) {
-    return `This action updates a #${id} post`;
+  update(updatePostInput: UpdatePostInput) {
+    const postIndex = this.posts.findIndex(post => post.id === updatePostInput.id);
+
+    if (postIndex === -1) {
+      throw new Error(`Post with ID ${updatePostInput.id} not found`);
+    }
+
+    const updatedPost = {
+      ...this.posts[postIndex],
+      ...updatePostInput,
+    };
+
+    this.posts[postIndex] = updatedPost;
+
+    return updatedPost;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  remove(id: string) {
+    const postIndex = this.posts.findIndex(post => post.id === id);
+
+    if (postIndex === -1) {
+      throw new Error(`Post with ID ${id} not found`);
+    }
+
+    const removedPost = this.posts[postIndex];
+
+    this.posts.splice(postIndex, 1);
+
+    return removedPost;
   }
 }

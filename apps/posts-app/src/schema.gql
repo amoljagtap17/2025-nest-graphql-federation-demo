@@ -1,0 +1,44 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreatePostInput {
+  """Content of the post"""
+  content: String!
+
+  """Title of the post"""
+  title: String!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
+  removePost(id: ID!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+}
+
+type Post {
+  """Content of the post"""
+  content: String!
+
+  """ID of the post"""
+  id: ID!
+
+  """Title of the post"""
+  title: String!
+}
+
+type Query {
+  post(id: ID!): Post!
+  posts: [Post!]!
+}
+
+input UpdatePostInput {
+  """Content of the post"""
+  content: String
+
+  """ID of the post to update"""
+  id: ID!
+
+  """Title of the post"""
+  title: String
+}
