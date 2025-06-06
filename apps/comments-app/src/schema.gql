@@ -1,0 +1,82 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Represents a comment on a post"""
+type Comment {
+  """Identifier of the user who authored the comment"""
+  authorId: ID!
+
+  """Content of the comment"""
+  content: String!
+
+  """Unique identifier for the comment"""
+  id: ID!
+
+  """Identifier of the post the comment belongs to"""
+  postId: ID!
+
+  """Author of the comment"""
+  user: User
+}
+
+"""Input data for creating a new comment"""
+input CreateCommentInput {
+  """Identifier of the user who authored the comment"""
+  authorId: ID!
+
+  """Content of the comment"""
+  content: String!
+
+  """Identifier of the post the comment belongs to"""
+  postId: ID!
+}
+
+type Mutation {
+  """Create a new comment"""
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+
+  """Delete a comment by ID"""
+  removeComment(id: ID!): Comment!
+
+  """Update an existing comment"""
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+}
+
+"""Represents a post"""
+type Post {
+  """List of comments associated with the post"""
+  comments: [Comment!]
+
+  """Unique identifier for the post"""
+  id: ID!
+}
+
+type Query {
+  """Retrieve a comment by ID"""
+  comment(id: ID!): Comment!
+
+  """Retrieve all comments"""
+  comments: [Comment!]!
+}
+
+"""Input data for updating an existing comment"""
+input UpdateCommentInput {
+  """Identifier of the user who authored the comment"""
+  authorId: ID
+
+  """Content of the comment"""
+  content: String
+
+  """Unique identifier for the comment"""
+  id: ID!
+
+  """Identifier of the post the comment belongs to"""
+  postId: ID
+}
+
+"""Represents a user"""
+type User {
+  """Unique identifier for the user"""
+  id: ID!
+}

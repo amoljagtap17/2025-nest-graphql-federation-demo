@@ -18,6 +18,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
           subgraphs: [
             { name: 'posts', url: 'http://localhost:3001/graphql' },
             { name: 'users', url: 'http://localhost:3002/graphql' },
+            { name: 'comments', url: 'http://localhost:3003/graphql' },
           ],
         }),
       },
