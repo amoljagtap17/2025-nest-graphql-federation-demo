@@ -4,6 +4,9 @@
 
 """Input data for creating a new post"""
 input CreatePostInput {
+  """Identifier of the user who will author the post"""
+  authorId: ID!
+
   """Content of the post"""
   content: String!
 
@@ -24,6 +27,9 @@ type Mutation {
 
 """Represents a blog post"""
 type Post {
+  """Identifier of the user who authored the post"""
+  authorId: ID!
+
   """Content of the post"""
   content: String!
 
@@ -32,6 +38,9 @@ type Post {
 
   """Title of the post"""
   title: String!
+
+  """Author of the post"""
+  user: User
 }
 
 type Query {
@@ -44,6 +53,9 @@ type Query {
 
 """Input data for updating an existing post"""
 input UpdatePostInput {
+  """Identifier of the user who will author the post"""
+  authorId: ID
+
   """Content of the post"""
   content: String
 
@@ -52,4 +64,13 @@ input UpdatePostInput {
 
   """Title of the post"""
   title: String
+}
+
+"""Represents a user"""
+type User {
+  """Unique identifier for the user"""
+  id: ID!
+
+  """List of posts created by the user"""
+  posts: [Post!]
 }

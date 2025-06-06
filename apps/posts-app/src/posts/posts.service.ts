@@ -64,4 +64,8 @@ export class PostsService {
 
     return removedPost;
   }
+
+  forAuthor(authorId: string): Post[] {
+    return this.posts.filter(post => post.authorId === authorId);
+  }
 }

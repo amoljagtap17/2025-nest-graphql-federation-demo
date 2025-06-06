@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType({ description: 'Input data for creating a new post' })
 export class CreatePostInput {
@@ -7,4 +7,7 @@ export class CreatePostInput {
 
   @Field({ description: 'Content of the post' })
   content: string;
+
+  @Field(() => ID, { description: 'Identifier of the user who will author the post' })
+  authorId: string;
 }

@@ -4,10 +4,11 @@ import {
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { PostsService } from './posts.service';
-import { PostsResolver } from './posts.resolver';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { PostsService } from './posts.service';
+import { PostsResolver } from './posts.resolver';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       autoSchemaFile: {
         federation: 2,
         path: join(process.cwd(), 'apps/posts-app', 'src/schema.gql'),
+      },
+      buildSchemaOptions: {
+        orphanedTypes: [User],
       },
       playground: false,
       sortSchema: true,
