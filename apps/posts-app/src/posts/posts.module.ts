@@ -9,6 +9,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { PostsService } from './posts.service';
 import { PostsResolver } from './posts.resolver';
 import { User } from './entities/user.entity';
+import { UsersResolver } from './users.resolver';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { User } from './entities/user.entity';
       graphiql: false
     }),
   ],
-  providers: [PostsResolver, PostsService],
+  providers: [PostsResolver, UsersResolver, PostsService],
 })
 export class PostsModule { }
