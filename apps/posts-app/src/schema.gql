@@ -2,6 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Input data for creating a new post"""
 input CreatePostInput {
   """Content of the post"""
   content: String!
@@ -11,11 +12,17 @@ input CreatePostInput {
 }
 
 type Mutation {
+  """Create a new post"""
   createPost(createPostInput: CreatePostInput!): Post!
+
+  """Delete a post by ID"""
   removePost(id: ID!): Post!
+
+  """Update an existing post"""
   updatePost(updatePostInput: UpdatePostInput!): Post!
 }
 
+"""Represents a blog post"""
 type Post {
   """Content of the post"""
   content: String!
@@ -28,10 +35,14 @@ type Post {
 }
 
 type Query {
+  """Retrieve a post by ID"""
   post(id: ID!): Post!
+
+  """Retrieve all posts"""
   posts: [Post!]!
 }
 
+"""Input data for updating an existing post"""
 input UpdatePostInput {
   """Content of the post"""
   content: String
