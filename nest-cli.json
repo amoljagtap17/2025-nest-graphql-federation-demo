@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/gateway",
   "projects": {
+    "comments-app": {
+      "type": "application",
+      "root": "apps/comments-app",
+      "entryFile": "main",
+      "sourceRoot": "apps/comments-app/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/comments-app/tsconfig.app.json"
+      }
+    },
     "gateway": {
       "type": "application",
       "root": "apps/gateway",
