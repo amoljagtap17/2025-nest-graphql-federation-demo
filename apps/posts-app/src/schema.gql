@@ -27,7 +27,7 @@ type Post {
   """Content of the post"""
   content: String!
 
-  """ID of the post"""
+  """Unique identifier for the post"""
   id: ID!
 
   """Title of the post"""
