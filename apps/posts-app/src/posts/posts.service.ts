@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { randomUUID } from 'crypto';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostsService {
 
-  private posts: { id: string; title: string; content: string }[] = [];
+  private posts: Post[] = [];
 
-  create(createPostInput: CreatePostInput) {
+  create(createPostInput: CreatePostInput): Post {
     const newPost = {
       id: randomUUID(),
       ...createPostInput,
@@ -19,11 +20,11 @@ export class PostsService {
     return newPost;
   }
 
-  findAll() {
+  findAll(): Post[] {
     return this.posts;
   }
 
-  findOne(id: string) {
+  findOne(id: string): Post {
     const post = this.posts.find(post => post.id === id);
 
     if (!post) {
@@ -33,7 +34,7 @@ export class PostsService {
     return post;
   }
 
-  update(updatePostInput: UpdatePostInput) {
+  update(updatePostInput: UpdatePostInput): Post {
     const postIndex = this.posts.findIndex(post => post.id === updatePostInput.id);
 
     if (postIndex === -1) {
@@ -50,7 +51,7 @@ export class PostsService {
     return updatedPost;
   }
 
-  remove(id: string) {
+  remove(id: string): Post {
     const postIndex = this.posts.findIndex(post => post.id === id);
 
     if (postIndex === -1) {

@@ -9,27 +9,27 @@ export class PostsResolver {
   constructor(private readonly postsService: PostsService) { }
 
   @Mutation(() => Post)
-  createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
+  createPost(@Args('createPostInput') createPostInput: CreatePostInput): Post {
     return this.postsService.create(createPostInput);
   }
 
   @Query(() => [Post], { name: 'posts' })
-  findAll() {
+  findAll(): Post[] {
     return this.postsService.findAll();
   }
 
   @Query(() => Post, { name: 'post' })
-  findOne(@Args('id', { type: () => ID }) id: string) {
+  findOne(@Args('id', { type: () => ID }) id: string): Post {
     return this.postsService.findOne(id);
   }
 
   @Mutation(() => Post)
-  updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
+  updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput): Post {
     return this.postsService.update(updatePostInput);
   }
 
   @Mutation(() => Post)
-  removePost(@Args('id', { type: () => ID }) id: string) {
+  removePost(@Args('id', { type: () => ID }) id: string): Post {
     return this.postsService.remove(id);
   }
 }
