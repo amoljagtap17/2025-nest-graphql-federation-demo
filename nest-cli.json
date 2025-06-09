@@ -28,6 +28,15 @@
         "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
+    "likes-app": {
+      "type": "application",
+      "root": "apps/likes-app",
+      "entryFile": "main",
+      "sourceRoot": "apps/likes-app/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/likes-app/tsconfig.app.json"
+      }
+    },
     "posts-app": {
       "type": "application",
       "root": "apps/posts-app",
