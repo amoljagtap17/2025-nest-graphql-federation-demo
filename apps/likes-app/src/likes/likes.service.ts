@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { CreateLikeInput } from './dto/create-like.input';
 import { UpdateLikeInput } from './dto/update-like.input';
+import { Like } from './entities/like.entity';
 
 @Injectable()
 export class LikesService {
-  create(createLikeInput: CreateLikeInput) {
-    return 'This action adds a new like';
+  private likes: Like[] = [];
+
+  create(createLikeInput: CreateLikeInput): Like {
+    const newLike: Like = {
+      id: randomUUID(),
+      ...createLikeInput,
+    };
+
+    this.likes.push(newLike);
+
+    return newLike;
   }
 
-  findAll() {
-    return `This action returns all likes`;
-  }
+  remove(id: string): Like {
+    const index = this.likes.findIndex(like => like.id === id);
 
-  findOne(id: number) {
-    return `This action returns a #${id} like`;
-  }
+    if (index === -1) {
+      throw new Error(`Like with ID ${id} not found`);
+    }
 
-  update(id: number, updateLikeInput: UpdateLikeInput) {
-    return `This action updates a #${id} like`;
-  }
+    const removedLike = this.likes.splice(index, 1)[0];
 
-  remove(id: number) {
-    return `This action removes a #${id} like`;
+    return removedLike;
   }
 }
