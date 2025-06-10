@@ -1,7 +1,8 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
-import { LikesService } from './likes.service';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
+import { CreateLikeInput } from './dto/create-like.input';;
 import { Like } from './entities/like.entity';
-import { CreateLikeInput } from './dto/create-like.input';
+import { User } from './entities/user.entity';
+import { LikesService } from './likes.service'
 
 @Resolver(() => Like)
 export class LikesResolver {
@@ -15,5 +16,10 @@ export class LikesResolver {
   @Mutation(() => Like)
   removeLike(@Args('id', { type: () => ID }) id: string) {
     return this.likesService.remove(id);
+  }
+
+  @ResolveField(() => User, { name: 'user', description: 'User who liked the post' })
+  user(@Parent() like: Like): any {
+    return { __typename: 'User', id: like.userId };
   }
 }

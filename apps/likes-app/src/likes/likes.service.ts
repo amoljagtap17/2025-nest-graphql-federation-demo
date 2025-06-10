@@ -30,4 +30,8 @@ export class LikesService {
 
     return removedLike;
   }
+
+  forPost(postId: string): Like[] {
+    return this.likes.filter(like => like.postId === postId);
+  }
 }
