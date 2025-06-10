@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { CreateLikeInput } from './dto/create-like.input';;
 import { Like } from './entities/like.entity';
 import { User } from './entities/user.entity';

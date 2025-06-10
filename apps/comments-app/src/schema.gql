@@ -2,77 +2,42 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Represents a comment on a post"""
-type Comment {
-  """Identifier of the user who authored the comment"""
-  authorId: ID!
+"""Input data for creating a new like"""
+input CreateLikeInput {
+  """Identifier of the post that is liked"""
+  postId: String!
 
-  """Content of the comment"""
-  content: String!
-
-  """Unique identifier for the comment"""
-  id: ID!
-
-  """Identifier of the post the comment belongs to"""
-  postId: ID!
-
-  """Author of the comment"""
-  user: User
+  """Identifier of the user who liked the post"""
+  userId: String!
 }
 
-"""Input data for creating a new comment"""
-input CreateCommentInput {
-  """Identifier of the user who authored the comment"""
-  authorId: ID!
+"""Represents a like on a post"""
+type Like {
+  """Unique identifier for the like"""
+  id: ID!
 
-  """Content of the comment"""
-  content: String!
-
-  """Identifier of the post the comment belongs to"""
+  """Identifier of the post that was liked"""
   postId: ID!
+
+  """User who liked the post"""
+  user: User
+
+  """Identifier of the user who liked the post"""
+  userId: ID!
 }
 
 type Mutation {
-  """Create a new comment"""
-  createComment(createCommentInput: CreateCommentInput!): Comment!
-
-  """Delete a comment by ID"""
-  removeComment(id: ID!): Comment!
-
-  """Update an existing comment"""
-  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+  createLike(createLikeInput: CreateLikeInput!): Like!
+  removeLike(id: ID!): Like!
 }
 
 """Represents a post"""
 type Post {
-  """List of comments associated with the post"""
-  comments: [Comment!]
-
   """Unique identifier for the post"""
   id: ID!
-}
 
-type Query {
-  """Retrieve a comment by ID"""
-  comment(id: ID!): Comment!
-
-  """Retrieve all comments"""
-  comments: [Comment!]!
-}
-
-"""Input data for updating an existing comment"""
-input UpdateCommentInput {
-  """Identifier of the user who authored the comment"""
-  authorId: ID
-
-  """Content of the comment"""
-  content: String
-
-  """Unique identifier for the comment"""
-  id: ID!
-
-  """Identifier of the post the comment belongs to"""
-  postId: ID
+  """List of likes associated with the post"""
+  likes: [Like!]!
 }
 
 """Represents a user"""
