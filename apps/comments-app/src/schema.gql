@@ -2,42 +2,77 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Input data for creating a new like"""
-input CreateLikeInput {
-  """Identifier of the post that is liked"""
-  postId: String!
+"""Represents a comment on a post"""
+type Comment {
+  """Identifier of the user who authored the comment"""
+  authorId: ID!
 
-  """Identifier of the user who liked the post"""
-  userId: String!
-}
+  """Content of the comment"""
+  content: String!
 
-"""Represents a like on a post"""
-type Like {
-  """Unique identifier for the like"""
+  """Unique identifier for the comment"""
   id: ID!
 
-  """Identifier of the post that was liked"""
+  """Identifier of the post the comment belongs to"""
   postId: ID!
 
-  """User who liked the post"""
+  """Author of the comment"""
   user: User
+}
 
-  """Identifier of the user who liked the post"""
-  userId: ID!
+"""Input data for creating a new comment"""
+input CreateCommentInput {
+  """Identifier of the user who authored the comment"""
+  authorId: ID!
+
+  """Content of the comment"""
+  content: String!
+
+  """Identifier of the post the comment belongs to"""
+  postId: ID!
 }
 
 type Mutation {
-  createLike(createLikeInput: CreateLikeInput!): Like!
-  removeLike(id: ID!): Like!
+  """Create a new comment"""
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+
+  """Delete a comment by ID"""
+  removeComment(id: ID!): Comment!
+
+  """Update an existing comment"""
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
 }
 
 """Represents a post"""
 type Post {
+  """List of comments associated with the post"""
+  comments: [Comment!]
+
   """Unique identifier for the post"""
   id: ID!
+}
 
-  """List of likes associated with the post"""
-  likes: [Like!]!
+type Query {
+  """Retrieve a comment by ID"""
+  comment(id: ID!): Comment!
+
+  """Retrieve all comments"""
+  comments: [Comment!]!
+}
+
+"""Input data for updating an existing comment"""
+input UpdateCommentInput {
+  """Identifier of the user who authored the comment"""
+  authorId: ID
+
+  """Content of the comment"""
+  content: String
+
+  """Unique identifier for the comment"""
+  id: ID!
+
+  """Identifier of the post the comment belongs to"""
+  postId: ID
 }
 
 """Represents a user"""

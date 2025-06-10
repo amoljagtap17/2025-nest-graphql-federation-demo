@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Input data for creating a new like"""
+input CreateLikeInput {
+  """Identifier of the post that is liked"""
+  postId: String!
+
+  """Identifier of the user who liked the post"""
+  userId: String!
+}
+
+"""Represents a like on a post"""
+type Like {
+  """Unique identifier for the like"""
+  id: ID!
+
+  """Identifier of the post that was liked"""
+  postId: ID!
+
+  """User who liked the post"""
+  user: User
+
+  """Identifier of the user who liked the post"""
+  userId: ID!
+}
+
+type Mutation {
+  createLike(createLikeInput: CreateLikeInput!): Like!
+  removeLike(id: ID!): Like!
+}
+
+"""Represents a post"""
+type Post {
+  """Unique identifier for the post"""
+  id: ID!
+
+  """List of likes associated with the post"""
+  likes: [Like!]!
+}
+
+"""Represents a user"""
+type User {
+  """Unique identifier for the user"""
+  id: ID!
+}

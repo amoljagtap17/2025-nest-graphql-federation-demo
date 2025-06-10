@@ -18,7 +18,7 @@ import { PostResolver } from './posts.resolver';
       driver: ApolloFederationDriver,
       autoSchemaFile: {
         federation: 2,
-        path: join(process.cwd(), 'apps/comments-app', 'src/schema.gql'),
+        path: join(process.cwd(), 'apps/likes-app', 'src/schema.gql'),
       },
       buildSchemaOptions: {
         orphanedTypes: [Post, User],
