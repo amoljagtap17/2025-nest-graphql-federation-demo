@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  """
+  Vote on a post (upvote or downvote). Returns null if vote is removed (toggled off)
+  """
+  vote(voteInput: VoteInput!): Vote
+}
+
+"""Represents a post"""
+type Post {
+  """Unique identifier for the post"""
+  id: ID!
+
+  """Total number of votes for the post"""
+  totalVotes: Float
+}
+
+"""Represents vote on a post"""
+type Vote {
+  """Unique identifier for the vote"""
+  id: ID!
+
+  """Identifier of the post that was voted on"""
+  postId: ID!
+
+  """Identifier of the user who voted"""
+  userId: ID!
+
+  """Value of the vote, typically 1 for upvote or -1 for downvote"""
+  value: Int!
+}
+
+"""Input type for voting on a post"""
+input VoteInput {
+  """Identifier of the post to vote on"""
+  postId: ID!
+
+  """Identifier of the user casting the vote"""
+  userId: ID!
+
+  """Type of vote (up or down)"""
+  voteType: VoteType!
+}
+
+"""The type of vote (up or down)"""
+enum VoteType {
+  DOWN
+  UP
+}
