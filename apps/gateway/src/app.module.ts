@@ -20,6 +20,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
             { name: 'users', url: 'http://localhost:3002/graphql' },
             { name: 'comments', url: 'http://localhost:3003/graphql' },
             { name: 'likes', url: 'http://localhost:3004/graphql' },
+            { name: 'votes', url: 'http://localhost:3005/graphql' },
           ],
         }),
       },
