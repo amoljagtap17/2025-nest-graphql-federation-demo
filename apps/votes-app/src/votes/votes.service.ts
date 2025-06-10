@@ -1,51 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { CreateVoteInput } from './dto/create-vote.input';
-import { UpdateVoteInput } from './dto/update-vote.input';
+import { VoteInput, VoteType } from './dto/vote.input';
 import { Vote } from './entities/vote.entity';
 
 @Injectable()
 export class VotesService {
   private votes: Vote[] = [];
 
-  create(createVoteInput: CreateVoteInput): Vote {
-    const newVote: Vote = {
-      id: randomUUID(),
-      ...createVoteInput,
-    };
+  vote(voteInput: VoteInput): Vote | null {
+    const voteValue = voteInput.voteType === VoteType.UP ? 1 : -1;
 
-    this.votes.push(newVote);
+    // Check if user has already voted on this post
+    const existingVoteIndex = this.votes.findIndex(
+      vote => vote.postId === voteInput.postId && vote.userId === voteInput.userId
+    );
 
-    return newVote;
-  }
+    if (existingVoteIndex !== -1) {
+      // Update existing vote
+      const existingVote = this.votes[existingVoteIndex];
 
-  update(updateVoteInput: UpdateVoteInput): Vote {
-    const index = this.votes.findIndex(vote => vote.id === updateVoteInput.id);
+      if (existingVote.value === voteValue) {
+        // Same vote type - remove the vote (toggle off)
+        this.votes.splice(existingVoteIndex, 1);
 
-    if (index === -1) {
-      throw new Error(`Vote with ID ${updateVoteInput.id} not found`);
+        return null;
+      } else {
+        // Different vote type - update the vote
+        existingVote.value = voteValue;
+
+        return existingVote;
+      }
+    } else {
+      // Create new vote
+      const newVote: Vote = {
+        id: randomUUID(),
+        postId: voteInput.postId,
+        userId: voteInput.userId,
+        value: voteValue,
+      };
+
+      this.votes.push(newVote);
+
+      return newVote;
     }
-
-    const updatedVote: Vote = {
-      ...this.votes[index],
-      ...updateVoteInput,
-    };
-
-    this.votes[index] = updatedVote;
-
-    return updatedVote;
-  }
-
-  remove(id: string): Vote {
-    const index = this.votes.findIndex(vote => vote.id === id);
-
-    if (index === -1) {
-      throw new Error(`Vote with ID ${id} not found`);
-    }
-
-    const removedVote = this.votes.splice(index, 1)[0];
-
-    return removedVote;
   }
 
   getTotalVotesForPost(postId: string): number {
